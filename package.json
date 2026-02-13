@@ -1,6 +1,6 @@
 {
   "name": "@lixril/leehooks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React 19 enhancer hooks that simplify the code",
   "type": "module",
   "main": "./dist/index.cjs",
