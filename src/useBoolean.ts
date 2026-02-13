@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
  * @param initialState Initial boolean value (default: false)
  * @returns [value, { setTrue, setFalse, toggle, setValue }]
  */
+
 export function useBoolean(initialState: boolean = false) {
   const [value, setValue] = useState(initialState);
 
