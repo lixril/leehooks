@@ -1,25 +1,71 @@
-import { useState, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 
-/**
- * Hook to manage boolean state.
- * @param initialState Initial boolean value (default: false)
- * @returns [value, { setTrue, setFalse, toggle, setValue }]
- */
+type UseBooleanOptions = {
+  onChange?: (value: boolean) => void;
+  value?: boolean;
+};
 
-export function useBoolean(initialState: boolean = false) {
-  const [value, setValue] = useState(initialState);
+type UseBooleanActions = {
+  setTrue: () => void;
+  setFalse: () => void;
+  toggle: () => void;
+  set: (value: boolean) => void;
+  reset: () => void;
+};
 
-  const setTrue = useCallback(() => setValue(true), []);
-  const setFalse = useCallback(() => setValue(false), []);
-  const toggle = useCallback(() => setValue((v) => !v), []);
+export function useBoolean(
+  initialState: boolean = false,
+  options?: UseBooleanOptions
+) {
+  const { value: controlledValue, onChange } = options ?? {};
 
-  return [
-    value,
-    {
+  const isControlled = controlledValue !== undefined;
+
+  const [internalValue, setInternalValue] = useState(initialState);
+  const initialRef = useRef(initialState);
+
+  const value = isControlled ? controlledValue : internalValue;
+
+  const emitChange = useCallback(
+    (next: boolean) => {
+      if (!isControlled) setInternalValue(next);
+      onChange?.(next);
+    },
+    [isControlled, onChange]
+  );
+
+  const setTrue = useCallback(() => emitChange(true), [emitChange]);
+  const setFalse = useCallback(() => emitChange(false), [emitChange]);
+
+  const toggle = useCallback(() => {
+    emitChange(!value);
+  }, [emitChange, value]);
+
+  const set = useCallback(
+    (next: boolean) => emitChange(next),
+    [emitChange]
+  );
+
+  const reset = useCallback(() => {
+    emitChange(initialRef.current);
+  }, [emitChange]);
+
+  // Keep internal state synced if switching from controlled → uncontrolled
+  useEffect(() => {
+    if (isControlled) return;
+    setInternalValue(internalValue);
+  }, [isControlled, internalValue]);
+
+  const actions: UseBooleanActions = useMemo(
+    () => ({
       setTrue,
       setFalse,
       toggle,
-      setValue,
-    },
-  ] as const;
+      set,
+      reset,
+    }),
+    [setTrue, setFalse, toggle, set, reset]
+  );
+
+  return [value, actions] as const;
 }
