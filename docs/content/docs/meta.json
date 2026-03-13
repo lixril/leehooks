@@ -1,0 +1,6 @@
+{
+  "title": "Display Name",
+  "icon": "MyIcon",
+  "pages": ["index", "leehooks"],
+  "defaultOpen": true
+}
