@@ -1,0 +1,6 @@
+content/
+app/
+lib/
+.next/
+docs/  # if extra
+.next/
