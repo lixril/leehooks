@@ -1,8 +1,8 @@
-import { Inter } from 'next/font/google';
+import { Inter, Google_Sans } from 'next/font/google';
 import { Provider } from '@/components/provider';
 import './global.css';
 
-const inter = Inter({
+const inter = Google_Sans({
   subsets: ['latin'],
 });
 
