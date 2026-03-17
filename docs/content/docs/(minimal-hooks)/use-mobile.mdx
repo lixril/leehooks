@@ -3,3 +3,24 @@ title: useMobile
 description: A responsive detection hook that identifiesmobile devices, tablets, and orientation changes in React 19 apps.
 ---
 
+## Code Signature
+
+<include cwd lang="typescript" meta='title="useMobile.ts"'>../src/useMobile.ts</include>
+
+## Usage
+
+```tsx
+import { useMobile } from "@lixril/leehooks";
+
+export default function Page(){
+
+  const isMobile = useMobile();
+
+  return(
+    <div className=`w-full h-16 ${isMobile? "bg-green-500" : "bg-yellow-500"}`>
+    {/* UI */}
+    </div>
+  )
+}
+
+```
