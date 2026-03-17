@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@orama/orama": "^3.1.18",
+    "@takumi-rs/image-response": "^0.71.7",
     "fumadocs-core": "16.6.16",
     "fumadocs-mdx": "14.2.9",
     "fumadocs-ui": "16.6.16",
@@ -19,20 +20,26 @@
     "next": "16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "tailwind-merge": "^3.5.0",
-    "@takumi-rs/image-response": "^0.71.7"
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.4.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.1.6",
     "postcss": "^8.5.8",
     "serve": "^14.2.6",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3",
-    "eslint-config-next": "16.1.6",
-    "eslint": "^10.0.3"
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@9.15.9+sha512.68046141893c66fad01c079231128e9afb89ef87e2691d69e4d40eee228988295fd4682181bae55b58418c3a253bde65a505ec7c5f9403ece5cc3cd37dcf2531",
+  "pnpm": {
+    "overrides": {
+      "eslint": "^9"
+    }
   }
 }
