@@ -1,32 +1,36 @@
 ---
 title: Introduction
-description: Welcome to the leehooks
+description: A compact React hook library built for speed and clarity.
 ---
 
 ## What is Leehooks?
 
-Leehooks is a cutting-edge React 19 hook library designed for advanced developers building high-performance applications. It extends
-React's built-in hooks with powerful utilities for state management,
-async operations, and optimizations tailored to React 19 features like the `use()` hook and compiler.
+Leehooks is a small React 19 hook library focused on practical, well-typed utilities for real apps. It extends React's built-in hooks with
+state helpers, storage sync, and Suspense-friendly data fetching tuned for React 19 features like `use()`.
 
 <img alt="leehooks" src="https://github.com/user-attachments/assets/8122999c-d513-4a25-9ead-400d699293d7" className="rounded-lg" />
 
-Leehooks is designed for React developers who rely heavily on custom hooks but find writing them one by one time-consuming. It saves development time while delivering highly optimized, lightning-fast hooks for better performance.
+If you regularly reach for custom hooks, Leehooks saves time with ready-to-use building blocks that are easy to read, easy to ship, and easy to extend.
 
-### Advanced Hooks
+### Minimal Hooks
 
 
 <Cards>
   <Card href="/docs/use-mobile" title="useMobile">
-    useMobile is a responsive detection hook that identifies
-    mobile devices, tablets, and orientation changes in React 19 apps.
+    A tiny media-query hook that tells you when the viewport is under a max-width breakpoint.
   </Card>
-  <Card title="useBoolean">
-    useBoolean is a toggle based hook that provide a ease use case about toggling
-    the state. It is highly usable for theme switching, switch components and more.
+  <Card href="/docs/use-boolean" title="useBoolean">
+    A compact boolean state helper with `toggle`, `setTrue`, `setFalse`, and `reset`.
   </Card>
-  <Card href="/" title="useLocalStorage">
-    useLocalStorage gives direct access to localstorage without writing complex code. It also provide 
-    build-in CRUD operations.
+  <Card href="/docs/use-local-storage" title="useLocalStorage">
+    Local storage state with serialization, validation, and cross-tab syncing.
+  </Card>
+</Cards>
+
+### Advanced Hooks
+
+<Cards>
+  <Card href="/docs/use-smart-query" title="useSmartQuery">
+    Suspense-friendly data fetching with caching, stale time, and a manual refetch.
   </Card>
 </Cards>

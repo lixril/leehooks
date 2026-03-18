@@ -1,0 +1,51 @@
+---
+title: useBoolean
+description: A small state hook with handy boolean actions like toggle, setTrue, and reset.
+---
+
+## What it does
+
+`useBoolean` gives you a boolean value plus a compact set of actions to flip or force the state. It supports both uncontrolled and controlled usage through the `value` and `onChange` options.
+
+## Code Signature
+
+<include cwd lang="typescript" meta='title="useBoolean.ts"'>../src/useBoolean.ts</include>
+
+## Usage
+
+```tsx
+import { useBoolean } from "@lixril/leehooks";
+
+export default function Filters() {
+  const [isOpen, { toggle, setTrue, setFalse, reset }] = useBoolean(false);
+
+  return (
+    <div>
+      <button onClick={toggle}>Toggle</button>
+      <button onClick={setTrue}>Open</button>
+      <button onClick={setFalse}>Close</button>
+      <button onClick={reset}>Reset</button>
+      <div>{isOpen ? "Open" : "Closed"}</div>
+    </div>
+  );
+}
+```
+
+## Parameters
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `initialState` | `boolean` | `false` | Initial value for uncontrolled usage. |
+| `options.value` | `boolean` | — | Controlled value (optional). |
+| `options.onChange` | `(value: boolean) => void` | — | Called whenever the value changes. |
+
+## Returns
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `value` | `boolean` | Current boolean state. |
+| `actions` | `{ setTrue, setFalse, toggle, set, reset }` | Helper functions to update the state. |
+
+## Notes
+
+To control the value from a parent, pass `value` and `onChange` in the options object.

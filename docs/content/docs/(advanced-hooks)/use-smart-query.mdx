@@ -1,0 +1,71 @@
+---
+title: useSmartQuery
+description: Suspense-friendly data fetching with caching, stale time, and a manual refetch.
+---
+
+## What it does
+
+`useSmartQuery` wraps a promise-based fetch function, caches the result in an in-memory LRU cache, and integrates with React 19 Suspense via `use()`.
+
+## Code Signature
+
+<include cwd lang="typescript" meta='title="useSmartQuery.ts"'>../src/useSmartQuery.ts</include>
+
+## Usage
+
+```tsx
+import { Suspense } from "react";
+import { useSmartQuery } from "@lixril/leehooks";
+
+function UsersList() {
+  const { data, refetch } = useSmartQuery(
+    "users",
+    () => fetch("/api/users").then((r) => r.json()),
+    { staleTime: 60_000 }
+  );
+
+  return (
+    <div>
+      <button onClick={refetch}>Refresh</button>
+      <ul>
+        {data.map((user: { id: string; name: string }) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading users...</div>}>
+      <UsersList />
+    </Suspense>
+  );
+}
+```
+
+## Parameters
+
+### Core Inputs
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `key` | `string` | — | Cache key used for de-duplication and refetching. |
+| `fetchFn` | `() => Promise<T>` | — | Async function that returns data (or a `Response`). |
+| `options.staleTime` | `number` | `Infinity` | How long (ms) cached data stays fresh before refetching. |
+
+## Returns
+
+### Hook Result
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `T` | Resolved data from `fetchFn` (Suspense will wait for it). |
+| `refetch` | `() => void` | Invalidates the cache for this key and fetches again. |
+
+## Notes
+
+### Requirements
+
+`useSmartQuery` uses `use()` under the hood, so it must be rendered inside a `Suspense` boundary and in React 19+.

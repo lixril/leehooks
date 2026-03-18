@@ -1,0 +1,59 @@
+---
+title: useLocalStorage
+description: Local storage state with serialization, validation, and cross-tab syncing.
+---
+
+## What it does
+
+`useLocalStorage` stores React state in `localStorage` (or a custom storage), keeps it in sync across tabs, and falls back safely when storage is unavailable.
+
+## Code Signature
+
+<include cwd lang="typescript" meta='title="useLocalStorage.ts"'>../src/useLocalStorage.ts</include>
+
+## Usage
+
+```tsx
+import { useLocalStorage } from "@lixril/leehooks";
+
+type Theme = "light" | "dark";
+
+export default function ThemeToggle() {
+  const [theme, setTheme, removeTheme] = useLocalStorage<Theme>(
+    "theme",
+    "light"
+  );
+
+  return (
+    <div>
+      <button onClick={() => setTheme("light")}>Light</button>
+      <button onClick={() => setTheme("dark")}>Dark</button>
+      <button onClick={removeTheme}>Reset</button>
+      <div>Active theme: {theme}</div>
+    </div>
+  );
+}
+```
+
+## Parameters
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `key` | `string` | — | Storage key. |
+| `initialValue` | `T` | — | Value used when nothing is stored or parsing fails. |
+| `options.serializer` | `(value: T) => string` | `JSON.stringify` | Converts value to a string. |
+| `options.deserializer` | `(value: string) => T` | `JSON.parse` | Converts stored string back to `T`. |
+| `options.validate` | `(value: unknown) => value is T` | — | Optional type guard to reject invalid data. |
+| `options.storage` | `Storage` | `localStorage` | Custom storage (e.g. `sessionStorage`). |
+
+## Returns
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `value` | `T` | Current stored value. |
+| `setValue` | `(value: T \| (prev: T) => T) => void` | Updates the stored value. |
+| `remove` | `() => void` | Removes the key from storage. |
+
+## Notes
+
+You can pass custom `serializer`, `deserializer`, or `storage` (like `sessionStorage`) via options. On the server, it falls back to an in-memory store.

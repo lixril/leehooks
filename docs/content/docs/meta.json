@@ -1,6 +1,14 @@
 {
   "title": "Introduction",
-  "pages": ["index","---Minimal Hooks---","(minimal-hooks)/use-mobile"],
+  "pages": [
+    "index",
+    "---Minimal Hooks---",
+    "(minimal-hooks)/use-mobile",
+    "(minimal-hooks)/use-boolean",
+    "(minimal-hooks)/use-local-storage",
+    "---Advanced Hooks---",
+    "(advanced-hooks)/use-smart-query"
+  ],
   "defaultOpen": true,
   "root": true
 }

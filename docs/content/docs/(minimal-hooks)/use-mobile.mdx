@@ -1,7 +1,11 @@
 ---
 title: useMobile
-description: A responsive detection hook that identifiesmobile devices, tablets, and orientation changes in React 19 apps.
+description: A tiny media-query hook that tells you if the viewport is under a max-width breakpoint.
 ---
+
+## What it does
+
+`useMobile` listens to a `max-width` media query and returns a boolean that updates whenever the viewport crosses the breakpoint.
 
 ## Code Signature
 
@@ -13,14 +17,29 @@ description: A responsive detection hook that identifiesmobile devices, tablets,
 import { useMobile } from "@lixril/leehooks";
 
 export default function Page(){
-
   const isMobile = useMobile();
 
   return(
-    <div className=`w-full h-16 ${isMobile? "bg-green-500" : "bg-yellow-500"}`>
-    {/* UI */}
+    <div className={`w-full h-16 ${isMobile ? "bg-green-500" : "bg-yellow-500"}`}>
+      {/* UI */}
     </div>
   )
 }
 
 ```
+
+## Parameters
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `breakpoint` | `number` | `768` | Max-width in pixels for the mobile cutoff. |
+
+## Returns
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `isMobile` | `boolean` | `true` when the viewport is at or below the breakpoint. |
+
+## Notes
+
+This hook relies on `window.matchMedia`, so use it in browser-only/client components (not during SSR).
