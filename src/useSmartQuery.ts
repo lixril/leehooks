@@ -15,14 +15,7 @@
  */
 
 import { LRUCache } from "lru-cache";
-import {
-  use,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type QueryKey = string | readonly unknown[];
 
@@ -122,7 +115,7 @@ function createFetcher<TData>(
   staleTime: number,
   dedupingInterval: number,
   onSuccess?: (data: TData) => void,
-  onError?: (error: unknown) => void
+  onError?: (error: unknown) => void,
 ): Promise<TData> {
   const entry = globalCache.get(rawKey);
   const now = Date.now();
@@ -132,7 +125,8 @@ function createFetcher<TData>(
     const age = now - entry.timestamp;
     if (age < staleTime) return entry.promise as Promise<TData>;
     // Within deduping window — reuse the in-flight promise
-    if (age < dedupingInterval && !entry.resolved) return entry.promise as Promise<TData>;
+    if (age < dedupingInterval && !entry.resolved)
+      return entry.promise as Promise<TData>;
   }
 
   const promise = fetchFn()
@@ -180,7 +174,7 @@ export interface SmartQueryClient {
   prefetch: <TData>(
     key: QueryKey,
     fetchFn: FetchFn<TData>,
-    options?: Pick<QueryOptions<TData>, "staleTime" | "dedupingInterval">
+    options?: Pick<QueryOptions<TData>, "staleTime" | "dedupingInterval">,
   ) => Promise<TData>;
 
   /** Evict all entries */
@@ -202,7 +196,7 @@ export const smartQueryClient: SmartQueryClient = {
       serializeKey(key),
       fetchFn,
       options.staleTime ?? Infinity,
-      options.dedupingInterval ?? 2000
+      options.dedupingInterval ?? 2000,
     );
   },
 
@@ -237,7 +231,7 @@ export function useSmartQueryClient(): SmartQueryClient {
 export function useSmartQuery<TData, TError = Error>(
   key: QueryKey,
   fetchFn: FetchFn<TData>,
-  options: QueryOptions<TData, TError> = {}
+  options: QueryOptions<TData, TError> = {},
 ): QueryResult<TData> {
   const {
     staleTime = Infinity,
@@ -257,12 +251,18 @@ export function useSmartQuery<TData, TError = Error>(
   // Stable callback refs — don't invalidate the memo when inline fns change
   const onSuccessRef = useRef(onSuccess);
   const onErrorRef = useRef(onError);
-  useEffect(() => { onSuccessRef.current = onSuccess; }, [onSuccess]);
-  useEffect(() => { onErrorRef.current = onError; }, [onError]);
+  useEffect(() => {
+    onSuccessRef.current = onSuccess;
+  }, [onSuccess]);
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
 
   // Stable fetchFn ref
   const fetchFnRef = useRef(fetchFn);
-  useEffect(() => { fetchFnRef.current = fetchFn; }, [fetchFn]);
+  useEffect(() => {
+    fetchFnRef.current = fetchFn;
+  }, [fetchFn]);
 
   const promise = useMemo(() => {
     if (!enabled) {
@@ -276,7 +276,7 @@ export function useSmartQuery<TData, TError = Error>(
       staleTime,
       dedupingInterval,
       (d) => onSuccessRef.current?.(d),
-      (e) => onErrorRef.current?.(e as TError)
+      (e) => onErrorRef.current?.(e as TError),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectiveKey, enabled, staleTime, dedupingInterval]);
@@ -325,7 +325,7 @@ export function useSmartQuery<TData, TError = Error>(
       // Force re-render so `use()` picks up the new settled promise
       setVersion((v) => v + 1);
     },
-    [effectiveKey]
+    [effectiveKey],
   );
 
   return { data, refetch, mutate };
