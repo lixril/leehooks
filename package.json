@@ -11,14 +11,20 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./smart-query": {
+      "types": "./dist/smart-query.d.ts",
+      "import": "./dist/smart-query.js",
+      "require": "./dist/smart-query.cjs"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "fixed"
   ],
   "scripts": {
-    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
-    "build": "tsup src/index.ts --format cjs,esm --minify --clean --dts",
+    "dev": "tsup src/index.ts src/smart-query.ts --format cjs,esm --watch --dts",
+    "build": "tsup src/index.ts src/smart-query.ts --format cjs,esm --minify --clean --dts",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc --noEmit"

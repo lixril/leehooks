@@ -7,7 +7,8 @@
     "(minimal-hooks)/use-boolean",
     "(minimal-hooks)/use-local-storage",
     "---Advanced Hooks---",
-    "(advanced-hooks)/use-smart-query"
+    "(advanced-hooks)/use-smart-query",
+    "(advanced-hooks)/smart-query-client"
   ],
   "defaultOpen": true,
   "root": true

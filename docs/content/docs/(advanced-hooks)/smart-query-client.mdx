@@ -1,0 +1,58 @@
+---
+title: Smart Query Client
+description: Imperative cache APIs for useSmartQuery, including configureCache, prefetch, and invalidate.
+---
+
+## What it does
+
+These APIs let you manage the `useSmartQuery` cache outside the hook: prefetch data, invalidate keys, read cached values, and tune cache settings.
+
+## APIs
+
+### configureCache
+
+Configure the global LRU cache. Call once at app startup (e.g. `main.tsx`).
+
+```tsx
+import { configureCache } from "@lixril/leehooks/smart-query";
+
+configureCache({ max: 200, ttl: 60_000 });
+```
+
+### useSmartQueryClient
+
+Hook wrapper around the shared client. Use inside components to invalidate keys, prefetch, or read cached data without Suspense.
+
+```tsx
+import { useSmartQueryClient } from "@lixril/leehooks/smart-query";
+
+function RefreshUsersButton() {
+  const client = useSmartQueryClient();
+  return (
+    <button onClick={() => client.invalidate("users")}>
+      Refresh users
+    </button>
+  );
+}
+```
+
+### smartQueryClient
+
+Singleton client for non-React code such as route loaders or event handlers.
+
+```tsx
+import { smartQueryClient } from "@lixril/leehooks/smart-query";
+
+await smartQueryClient.prefetch(["user", "42"], () =>
+  fetch("/api/users/42").then((r) => r.json()),
+);
+```
+
+## Client Methods
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `invalidate` | `(key: QueryKey) => void` | Evict a key so the next render refetches it. |
+| `peek` | `<T>(key: QueryKey) => T \| undefined` | Read cached data immediately without suspending. |
+| `prefetch` | `<T>(key, fetchFn, options?) => Promise<T>` | Fetch and cache data ahead of time. |
+| `clear` | `() => void` | Remove all cached entries. |
