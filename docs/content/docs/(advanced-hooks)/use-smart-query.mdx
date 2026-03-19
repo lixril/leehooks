@@ -7,6 +7,11 @@ description: Suspense-first data fetching with LRU cache, deduping, and optimist
 
 `useSmartQuery` wraps an async fetch function, caches results in a global in-memory LRU cache, and integrates with React 19 Suspense via `use()`. It also supports deduping, conditional fetching, reactive refetching via `deps`, and optimistic updates with `mutate()`.
 
+
+<Callout className="rounded-lg" title="Warning" type="warn">
+  The hook `useSmartQuery` is currently experimental or still under development.
+</Callout>
+
 ## Code Signature
 
 <include cwd lang="typescript" meta='title="useSmartQuery.ts"'>../src/useSmartQuery.ts</include>

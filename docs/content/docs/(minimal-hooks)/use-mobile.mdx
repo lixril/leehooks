@@ -9,37 +9,43 @@ description: A tiny media-query hook that tells you if the viewport is under a m
 
 ## Code Signature
 
-<include cwd lang="typescript" meta='title="useMobile.ts"'>../src/useMobile.ts</include>
+<include cwd lang="typescript" meta='title="useMobile.ts"'>
+  ../src/useMobile.ts
+</include>
 
 ## Usage
 
 ```tsx
 import { useMobile } from "@lixril/leehooks";
 
-export default function Page(){
+export default function Page() {
   const isMobile = useMobile();
 
-  return(
-    <div className={`w-full h-16 ${isMobile ? "bg-green-500" : "bg-yellow-500"}`}>
+  return (
+    <div
+      className={`w-full h-16 ${isMobile ? "bg-green-500" : "bg-yellow-500"}`}
+    >
       {/* UI */}
     </div>
-  )
+  );
 }
-
 ```
 
 ## Parameters
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `breakpoint` | `number` | `768` | Max-width in pixels for the mobile cutoff. |
+| Name         | Type     | Default | Description                                |
+| ------------ | -------- | ------- | ------------------------------------------ |
+| `breakpoint` | `number` | `768`   | Max-width in pixels for the mobile cutoff. |
 
 ## Returns
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name       | Type      | Description                                             |
+| ---------- | --------- | ------------------------------------------------------- |
 | `isMobile` | `boolean` | `true` when the viewport is at or below the breakpoint. |
 
 ## Notes
 
-This hook relies on `window.matchMedia`, so use it in browser-only/client components (not during SSR).
+<Callout className="rounded-lg" title="Warning" type="warn">
+  This hook relies on `window.matchMedia`, so use it in browser-only/client
+  components (not during SSR).
+</Callout>
