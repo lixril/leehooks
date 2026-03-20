@@ -1,1 +1,1 @@
-export * from "./useSmartQuery";
+export * from "./smart-query/useSmartQuery";
