@@ -10,6 +10,9 @@ const GoogleSans = Google_Sans({
 export const metadata: Metadata = {
   title: 'leehooks - Advanced React Hooks Library',
   description: 'The advanced React hook library built for React 19 by the lixril team.',
+verification: {
+    google: 'google1250dc0252fcb139'
+  },
   openGraph: {
     title: 'leehooks - Advanced React Hooks Library',
     description: 'The advanced React hook library built for React 19 by the lixril team.',
@@ -29,6 +32,7 @@ export const metadata: Metadata = {
     images: ['https://github.com/user-attachments/assets/8122999c-d513-4a25-9ead-400d699293d7'],
   },
 };
+
 
 type LayoutProps<T extends string> = {
   children: React.ReactNode;
