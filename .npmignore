@@ -1,9 +1,0 @@
-content/
-app/
-lib/
-.next/
-docs/  # if extra
-.next/
-.github/
-node_modules
-pnpm-lock.yaml
